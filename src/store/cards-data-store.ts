@@ -36,4 +36,7 @@ export class CardsDataStore {
       });
     }
   }
+  setCard(card: TCard): void {
+    this.card = card;
+  }
 }

@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import { TCard } from '../../types/cards';
+import { CardsDataStore } from '../../store/cards-data-store';
+import { useStore } from '../../context/root-store-context';
+import { ModalType } from '../../const';
 
 const CardWrapper = styled.div`
   display: flex;
@@ -100,7 +103,13 @@ type TCardProps = {
 };
 
 function Card({ card }: TCardProps): JSX.Element {
+  const { cardsDataStore } = useStore();
   const { mobileAppDashboard, customerMarkParameters } = card;
+
+  const handleButtonClick = (card, type) => {
+    cardsDataStore.setCard(card);
+    console.log(type);
+  };
 
   return (
     <CardWrapper background={mobileAppDashboard.cardBackgroundColor}>
@@ -142,14 +151,17 @@ function Card({ card }: TCardProps): JSX.Element {
         <ActionsButtonWrapper
           color={mobileAppDashboard.mainColor}
           src="src/assets/img/eye_white.png"
+          onClick={() => handleButtonClick(card, ModalType.Details)}
         ></ActionsButtonWrapper>
         <ActionsButtonWrapper
           color={mobileAppDashboard.accentColor}
           src="src/assets/img/trash_white.png"
+          onClick={() => handleButtonClick(card, ModalType.Delete)}
         ></ActionsButtonWrapper>
         <DetailsButtonWrapper
           color={mobileAppDashboard.textColor}
           background={mobileAppDashboard.cardBackgroundColor}
+          onClick={() => handleButtonClick(card, ModalType.View)}
         >
           Подробнее
         </DetailsButtonWrapper>

@@ -4,3 +4,9 @@ export enum RequestStatus {
   Success = 'Success',
   Rejected = 'Rejected',
 }
+
+export enum ModalType {
+  View = 'View',
+  Delete = 'Delete',
+  Details = 'Details',
+}
