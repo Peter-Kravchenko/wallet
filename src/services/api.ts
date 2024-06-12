@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Cards } from '../types/cards';
+import { TCards } from '../types/cards';
 
 const BACKEND_URL =
   'http://devapp.bonusmoney.pro/mobileapp/getAllCompaniesIdeal';
@@ -12,9 +12,9 @@ const currentHeaders = {
 export async function getAllCards(
   offset: number = 0,
   limit: number = 10
-): Promise<Cards> {
+): Promise<TCards> {
   try {
-    const { data } = await axios.post<{ companies: Cards }>(
+    const { data } = await axios.post<{ companies: TCards }>(
       BACKEND_URL,
       {
         offset,

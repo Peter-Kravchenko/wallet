@@ -1,7 +1,12 @@
+import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 import Header from '../header/header';
 import Card from '../card/card';
-import { getAllCards } from '../../services/api';
+import { useStore } from '../../context/root-store-context';
+import { useEffect } from 'react';
+import { RequestStatus } from '../../const';
+import Loader from '../loader/loader';
+import EmptyPage from '../empty-page/empty-page';
 
 const MainPageWrapper = styled.main`
   background-color: #efefef;
@@ -11,21 +16,26 @@ const MainPageWrapper = styled.main`
   height: auto;
 `;
 
-function MainPage(): JSX.Element {
-  const cards = async () => {
-    const cards = await getAllCards();
-    console.log(cards);
-  };
-  cards();
+const MainPage = observer(() => {
+  const { cardsDataStore } = useStore();
+
+  useEffect(() => {
+    cardsDataStore.fetchCards();
+  }, [cardsDataStore]);
 
   return (
     <MainPageWrapper>
       <Header />
-      {[...Array(50)].map((_, index) => (
-        <Card key={index} />
-      ))}
+      {cardsDataStore.fetchingStatus === RequestStatus.Pending ? (
+        <Loader />
+      ) : null}
+      {cardsDataStore.isEmpty ? <EmptyPage /> : null}
+      {cardsDataStore.fetchingStatus === RequestStatus.Success &&
+        cardsDataStore.cards.map((card) => (
+          <Card key={card.company.companyId} card={card} />
+        ))}
     </MainPageWrapper>
   );
-}
+});
 
 export default MainPage;

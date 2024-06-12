@@ -1,9 +1,9 @@
-import { CardsDataStore } from './data-store';
+import { CardsDataStore } from './cards-data-store';
 
 class RootStore {
-  dataStore;
+  cardsDataStore;
   constructor() {
-    this.dataStore = new CardsDataStore();
+    this.cardsDataStore = new CardsDataStore();
   }
 }
 

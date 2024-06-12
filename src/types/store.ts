@@ -1,9 +1,9 @@
 import { RequestStatus } from '../const';
-import { Card } from './cards';
+import { TCard } from './cards';
 
 export type CardsData = {
-  cards: Card[];
-  card: Card | null;
+  cards: TCard[];
+  card: TCard | null;
   fetchingStatus: RequestStatus;
   offset: number;
 };

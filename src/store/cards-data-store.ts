@@ -1,11 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { RequestStatus } from '../const';
-import { Card, Cards } from '../types/cards';
+import { TCard, TCards } from '../types/cards';
 import { getAllCards } from '../services/api';
 
 export class CardsDataStore {
-  cards: Cards = [];
-  card: Card | null = null;
+  cards: TCards = [];
+  card: TCard | null = null;
+  isEmpty: boolean = false;
   fetchingStatus: RequestStatus = RequestStatus.Idle;
 
   constructor() {
@@ -21,11 +22,12 @@ export class CardsDataStore {
       this.fetchingStatus = RequestStatus.Pending;
       const cardList = await getAllCards(this.offset, 10);
       runInAction(() => {
-        if (cardList) {
+        if (cardList.length) {
           this.cards.push(...cardList);
           this.fetchingStatus = RequestStatus.Success;
         } else {
-          this.fetchingStatus = RequestStatus.Rejected;
+          this.isEmpty = true;
+          this.fetchingStatus = RequestStatus.Success;
         }
       });
     } catch (error) {
@@ -35,4 +37,3 @@ export class CardsDataStore {
     }
   }
 }
-

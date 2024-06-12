@@ -1,19 +1,19 @@
-export type Card = {
-  company: Company;
-  customerMarkParameters: CustomerMarkParameters;
-  mobileAppDashboard: MobileAppDashboard;
+export type TCard = {
+  company: TCompany;
+  customerMarkParameters: TCustomerMarkParameters;
+  mobileAppDashboard: TMobileAppDashboard;
 };
 
-type Company = {
+export type TCompany = {
   companyId: string;
 };
 
-type CustomerMarkParameters = {
-  loyaltyLevel: LoyaltyLevel;
+export type TCustomerMarkParameters = {
+  loyaltyLevel: TLoyaltyLevel;
   mark: number;
 };
 
-type LoyaltyLevel = {
+export type TLoyaltyLevel = {
   number: number;
   name: string;
   requiredSum: number;
@@ -21,7 +21,7 @@ type LoyaltyLevel = {
   cashToMark: number;
 };
 
-type MobileAppDashboard = {
+export type TMobileAppDashboard = {
   companyName: string;
   logo: string;
   backgroundColor: string;
@@ -32,4 +32,4 @@ type MobileAppDashboard = {
   accentColor: string;
 };
 
-export type Cards = Card[];
+export type TCards = TCard[];

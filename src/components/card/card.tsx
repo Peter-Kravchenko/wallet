@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import { TCard } from '../../types/cards';
 
 const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 4vw;
   font-family: 'SegoeUIRegular';
-  background-color: #fff;
+  background-color: ${({ background }) => background || '#fff'};
   border-radius: 30px;
 `;
 
@@ -19,12 +20,15 @@ const HeaderWrapper = styled.div`
 
 const NameWrapper = styled.p`
   font-size: 10vw;
+  color: ${({ color }) => color || 'black'};
 `;
 
 const ImageWrapper = styled.img`
   margin: 4vw 4vw 2vw 0;
   max-width: 15vw;
+  border-radius: 50%;
 `;
+
 const MainTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -40,15 +44,19 @@ const RowWrapper = styled.div`
 const PointsWrapper = styled.p`
   font-size: 6vw;
   margin-right: 2vw;
+  color: ${({ color }) => color || 'black'};
 `;
 
 const PointsText = styled.p`
   font-size: 4vw;
+  color: ${({ color }) => color || 'black'};
 `;
 
 const InfoWrapper = styled.p`
   font-size: 2vw;
+  margin-top: 4vw;
   margin-bottom: 2vw;
+  color: ${({ color }) => color || 'black'};
 `;
 
 const InfoWrapperData = styled.p`
@@ -73,44 +81,78 @@ const ActionsButtonWrapper = styled.img`
   margin-right: 20vw;
   width: 8vw;
   height: 8vw;
-  background-color: black;
+  background-color: ${(props) => props.color || '#black'};
+  border-radius: 50%;
 `;
 
 const DetailsButtonWrapper = styled.button`
   font-size: 4vw;
-  background-color: #efefef;
+  color: ${({ color }) => color || 'black'};
+  background-color: ${({ background }) => background || '#efefef'};
+  /* TODO fix */
   border: none;
   border-radius: 15px;
   padding: 3vw;
 `;
 
-function Card(): JSX.Element {
+type TCardProps = {
+  card: TCard;
+};
+
+function Card({ card }: TCardProps): JSX.Element {
+  const { mobileAppDashboard, customerMarkParameters } = card;
+
   return (
-    <CardWrapper>
+    <CardWrapper background={mobileAppDashboard.cardBackgroundColor}>
       <HeaderWrapper>
-        <NameWrapper>Name</NameWrapper>
-        <ImageWrapper src="src/assets/img/logo.png" />
+        <NameWrapper color={mobileAppDashboard.highlightTextColor}>
+          {mobileAppDashboard.companyName}
+        </NameWrapper>
+        <ImageWrapper src={mobileAppDashboard.logo} />
       </HeaderWrapper>
       <MainTextWrapper>
         <RowWrapper>
-          <PointsWrapper>200</PointsWrapper>
-          <PointsText>баллов</PointsText>
+          <PointsWrapper color={mobileAppDashboard.highlightTextColor}>
+            {customerMarkParameters.mark}
+          </PointsWrapper>
+          <PointsText color={mobileAppDashboard.highlightTextColor}>
+            баллов
+          </PointsText>
         </RowWrapper>
         <RowWrapper>
           <InfoRowWrapper>
-            <InfoWrapper>Кэшбэк</InfoWrapper>
-            <InfoWrapperData>1%</InfoWrapperData>
+            <InfoWrapper color={mobileAppDashboard.textColor}>
+              Кэшбэк
+            </InfoWrapper>
+            <InfoWrapperData>
+              {customerMarkParameters.loyaltyLevel.cashToMark}%
+            </InfoWrapperData>
           </InfoRowWrapper>
           <InfoRowWrapper>
-            <InfoWrapper>Уровень</InfoWrapper>
-            <InfoWrapperData>Базовый уровень тест</InfoWrapperData>
+            <InfoWrapper color={mobileAppDashboard.textColor}>
+              Уровень
+            </InfoWrapper>
+            <InfoWrapperData>
+              {customerMarkParameters.loyaltyLevel.name}
+            </InfoWrapperData>
           </InfoRowWrapper>
         </RowWrapper>
       </MainTextWrapper>
       <ButtonsWrapper>
-        <ActionsButtonWrapper src="src/assets/img/eye_white.png"></ActionsButtonWrapper>
-        <ActionsButtonWrapper src="src/assets/img/trash_white.png"></ActionsButtonWrapper>
-        <DetailsButtonWrapper>Подробнее</DetailsButtonWrapper>
+        <ActionsButtonWrapper
+          color={mobileAppDashboard.mainColor}
+          src="src/assets/img/eye_white.png"
+        ></ActionsButtonWrapper>
+        <ActionsButtonWrapper
+          color={mobileAppDashboard.accentColor}
+          src="src/assets/img/trash_white.png"
+        ></ActionsButtonWrapper>
+        <DetailsButtonWrapper
+          color={mobileAppDashboard.textColor}
+          background={mobileAppDashboard.cardBackgroundColor}
+        >
+          Подробнее
+        </DetailsButtonWrapper>
       </ButtonsWrapper>
     </CardWrapper>
   );
