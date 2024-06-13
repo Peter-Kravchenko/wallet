@@ -70,12 +70,12 @@ function Card({ card }: CardProps): JSX.Element {
       <ButtonsWrapper>
         <ActionButton
           color={mobileAppDashboard.mainColor}
-          src="src/assets/img/eye_white.png"
+          src="../public/img/eye_white.png"
           onClick={() => handleButtonClick(card, ModalType.Details)}
         />
         <ActionButton
           color={mobileAppDashboard.accentColor}
-          src="src/assets/img/trash_white.png"
+          src="../public/img/trash_white.png"
           onClick={() => handleButtonClick(card, ModalType.Delete)}
         />
         <DetailsButton

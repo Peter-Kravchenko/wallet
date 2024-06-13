@@ -25,7 +25,7 @@ function ModalCard(): JSX.Element {
             <Image
               className="mx-auto d-block"
               alt="exclamation"
-              src="src/assets/img/exclamation_white.png"
+              src="../public/img/exclamation_white.png"
               roundedCircle
               style={{ maxWidth: '15vw' }}
             />

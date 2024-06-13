@@ -13,7 +13,7 @@ const LogoWrapper = styled.img`
   height: 50vw;
 `;
 
-const LOGO_URL = 'src/assets/img/logo.png';
+const LOGO_URL = '../public/img/logo.png';
 
 function IntroPage() {
   return (
