@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-const HeaderWrapper = styled.header`
+const StyledHeader = styled.header`
   position: sticky;
   top: 0;
   background-color: #fff;
 `;
 
-const HeaderTextWrapper = styled.p`
+const HeaderText = styled.p`
   font-size: 10vw;
   color: #2688eb;
   text-align: center;
@@ -15,12 +15,12 @@ const HeaderTextWrapper = styled.p`
   margin: 4vw;
 `;
 
-function Header(): JSX.Element {
+function HeaderComponent(): JSX.Element {
   return (
-    <HeaderWrapper>
-      <HeaderTextWrapper>Управление картами</HeaderTextWrapper>
-    </HeaderWrapper>
+    <StyledHeader>
+      <HeaderText>Карты</HeaderText>
+    </StyledHeader>
   );
 }
 
-export default Header;
+export default HeaderComponent;

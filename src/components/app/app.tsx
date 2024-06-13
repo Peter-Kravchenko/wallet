@@ -1,20 +1,11 @@
-import { useEffect, useState } from 'react';
 import MainPage from '../main-page/main-page';
 import IntroPage from '../intro-page/intro-page';
+import useIntroLoading from '../../hooks/use-intro-loading';
 
 function App(): JSX.Element {
-  const [isIntroLoading, setIsIntroLoading] = useState(true);
+  const isIntroLoading = useIntroLoading(true, 3000);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsIntroLoading(false);
-    }, 3000);
-    return () => clearTimeout(timeoutId);
-  }, []);
-
-  // return isIntroLoading ? <IntroPage /> : <MainPage />;
-
-  return <MainPage />;
+  return isIntroLoading ? <IntroPage /> : <MainPage />;
 }
 
 export default App;

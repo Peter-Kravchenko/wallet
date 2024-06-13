@@ -14,26 +14,25 @@ import {
   InfoWrapper,
   InfoWrapperData,
   ButtonsWrapper,
-  ActionsButtonWrapper,
-  DetailsButtonWrapper,
+  ActionButton,
+  DetailsButton,
 } from '../styled-components/styled-components';
 
-type TCardProps = {
+type CardProps = {
   card: TCard;
 };
 
-function Card({ card }: TCardProps): JSX.Element {
+function Card({ card }: CardProps): JSX.Element {
   const { dataStore, modalStore } = useStore();
   const { mobileAppDashboard, customerMarkParameters } = card;
 
-  console.log('card');
-  const handleButtonClick = (card, type) => {
+  const handleButtonClick = (card: TCard, type: ModalType) => {
     dataStore.setCard(card);
     modalStore.openModal(type);
   };
 
   return (
-    <CardWrapper background={mobileAppDashboard.cardBackgroundColor}>
+    <CardWrapper $backgroundColor={mobileAppDashboard.cardBackgroundColor}>
       <HeaderWrapper>
         <NameWrapper color={mobileAppDashboard.highlightTextColor}>
           {mobileAppDashboard.companyName}
@@ -69,23 +68,23 @@ function Card({ card }: TCardProps): JSX.Element {
         </RowWrapper>
       </MainTextWrapper>
       <ButtonsWrapper>
-        <ActionsButtonWrapper
+        <ActionButton
           color={mobileAppDashboard.mainColor}
           src="src/assets/img/eye_white.png"
           onClick={() => handleButtonClick(card, ModalType.Details)}
-        ></ActionsButtonWrapper>
-        <ActionsButtonWrapper
+        />
+        <ActionButton
           color={mobileAppDashboard.accentColor}
           src="src/assets/img/trash_white.png"
           onClick={() => handleButtonClick(card, ModalType.Delete)}
-        ></ActionsButtonWrapper>
-        <DetailsButtonWrapper
+        />
+        <DetailsButton
           color={mobileAppDashboard.textColor}
-          background={mobileAppDashboard.cardBackgroundColor}
+          $backgroundColor={mobileAppDashboard.backgroundColor}
           onClick={() => handleButtonClick(card, ModalType.View)}
         >
           Подробнее
-        </DetailsButtonWrapper>
+        </DetailsButton>
       </ButtonsWrapper>
     </CardWrapper>
   );

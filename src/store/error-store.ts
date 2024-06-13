@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx';
 
 class ErrorStore {
   error: AxiosError | null = null;
-  message: string = '';
+  message?: string;
 
   constructor() {
     makeAutoObservable(this);
@@ -12,10 +12,11 @@ class ErrorStore {
   setError = (axiosError: AxiosError): void => {
     this.error = axiosError;
     const { status, data } = axiosError.response || {};
+    const errorMessage = (data as { message?: string })?.message;
 
     this.message =
       status === 400
-        ? data?.message || axiosError.message
+        ? errorMessage
         : status === 401
         ? 'Ошибка'
         : status === 500

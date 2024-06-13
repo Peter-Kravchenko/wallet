@@ -5,21 +5,17 @@ type DataStore = {
 };
 
 export const useScrollLoad = (dataStore: DataStore): void => {
-  const [isAtBottom, setIsAtBottom] = useState<boolean>(false);
+  const [isAtBottom, setIsAtBottom] = useState(false);
 
-  const handleScroll = (): void => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      setIsAtBottom(true);
-    } else {
-      setIsAtBottom(false);
-    }
+  const handleScroll = () => {
+    const scrollReachedBottom =
+      window.innerHeight + window.scrollY >= document.body.offsetHeight;
+    setIsAtBottom(scrollReachedBottom);
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {

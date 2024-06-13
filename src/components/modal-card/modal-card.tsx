@@ -12,8 +12,6 @@ function ModalCard(): JSX.Element {
     errorStore.clearError();
   };
 
-  console.log(modalStore.modalType);
-
   return (
     <>
       <Modal
