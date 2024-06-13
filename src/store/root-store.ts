@@ -1,14 +1,11 @@
-import { CardsDataStore } from './cards-data-store';
-import { ModalStore } from './modal-store';
+import cardsDataStore from './data-store';
+import errorStore from './error-store';
+import modalStore from './modal-store';
 
 class RootStore {
-  cardsDataStore;
-  modalStore;
-
-  constructor() {
-    this.cardsDataStore = new CardsDataStore();
-    this.modalStore = new ModalStore();
-  }
+  cardsDataStore = cardsDataStore;
+  modalStore = modalStore;
+  errorStore = errorStore;
 }
 
 export default RootStore;

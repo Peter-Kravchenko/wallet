@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { RequestStatus } from '../../const';
 import Loader from '../loader/loader';
 import EmptyPage from '../empty-page/empty-page';
+import ModalCard from '../modal-card/modal-card';
 
 const MainPageWrapper = styled.main`
   background-color: #efefef;
@@ -17,7 +18,7 @@ const MainPageWrapper = styled.main`
 `;
 
 const MainPage = observer(() => {
-  const { cardsDataStore } = useStore();
+  const { cardsDataStore, modalStore } = useStore();
 
   useEffect(() => {
     cardsDataStore.fetchCards();
@@ -29,6 +30,7 @@ const MainPage = observer(() => {
       {cardsDataStore.fetchingStatus === RequestStatus.Pending ? (
         <Loader />
       ) : null}
+      {modalStore.isOpen ? <ModalCard /> : null}
       {cardsDataStore.isEmpty ? <EmptyPage /> : null}
       {cardsDataStore.fetchingStatus === RequestStatus.Success &&
         cardsDataStore.cards.map((card) => (

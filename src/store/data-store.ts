@@ -1,9 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { RequestStatus } from '../const';
+import { ModalType, RequestStatus } from '../const';
 import { TCard, TCards } from '../types/cards';
 import { getAllCards } from '../services/api';
+import errorStore from './error-store';
+import { AxiosError } from 'axios';
+import modalStore from './modal-store';
 
-export class CardsDataStore {
+class CardsDataStore {
   cards: TCards = [];
   card: TCard | null = null;
   isEmpty: boolean = false;
@@ -31,12 +34,15 @@ export class CardsDataStore {
         }
       });
     } catch (error) {
-      runInAction(() => {
-        this.fetchingStatus = RequestStatus.Rejected;
-      });
+      this.fetchingStatus = RequestStatus.Rejected;
+      errorStore.setError(error as AxiosError);
+      modalStore.openModal(ModalType.Error);
     }
   }
   setCard(card: TCard): void {
     this.card = card;
   }
 }
+
+export const cardsDataStore = new CardsDataStore();
+export default cardsDataStore;

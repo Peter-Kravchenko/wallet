@@ -5,6 +5,8 @@ import { GlobalStyle } from './global-style';
 import { RootStoreContext } from './context/root-store-context';
 import RootStore from './store/root-store';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RootStoreContext.Provider value={new RootStore()}>

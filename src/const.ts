@@ -9,4 +9,6 @@ export enum ModalType {
   View = 'View',
   Delete = 'Delete',
   Details = 'Details',
+  Error = 'Error',
+  Default = '',
 }

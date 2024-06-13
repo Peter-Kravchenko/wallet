@@ -1,19 +1,22 @@
 import { makeAutoObservable } from 'mobx';
 import { ModalType } from '../const';
 
-export class ModalStore {
-  isActive = false;
-  modalType: ModalType | null = null;
+class ModalStore {
+  isOpen: boolean = false;
+  modalType: ModalType = ModalType.Default;
   constructor() {
     makeAutoObservable(this);
   }
   openModal(type: ModalType) {
-    this.isActive = true;
+    this.isOpen = true;
     this.modalType = type;
   }
 
   closeModal() {
-    this.isActive = false;
-    this.modalType = null;
+    this.isOpen = false;
+    this.modalType = ModalType.Default;
   }
 }
+
+const modalStore = new ModalStore();
+export default modalStore;
