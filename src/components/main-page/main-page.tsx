@@ -1,13 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 import Header from '../header/header';
-import Card from '../card/card';
 import { useStore } from '../../context/root-store-context';
-import { useEffect } from 'react';
 import { RequestStatus } from '../../const';
 import Loader from '../loader/loader';
-import EmptyPage from '../empty-page/empty-page';
 import ModalCard from '../modal-card/modal-card';
+import CardList from '../card-list/card-list';
+import { useScrollLoad } from '../../hooks/use-scroll-load';
 
 const MainPageWrapper = styled.main`
   background-color: #efefef;
@@ -17,25 +16,17 @@ const MainPageWrapper = styled.main`
   height: auto;
 `;
 
-const MainPage = observer(() => {
-  const { cardsDataStore, modalStore } = useStore();
+const MainPage: React.FC = observer(() => {
+  const { dataStore, modalStore } = useStore();
 
-  useEffect(() => {
-    cardsDataStore.fetchCards();
-  }, [cardsDataStore]);
+  useScrollLoad(dataStore);
 
   return (
     <MainPageWrapper>
       <Header />
-      {cardsDataStore.fetchingStatus === RequestStatus.Pending ? (
-        <Loader />
-      ) : null}
+      <CardList />
+      {dataStore.fetchingStatus === RequestStatus.Pending ? <Loader /> : null}
       {modalStore.isOpen ? <ModalCard /> : null}
-      {cardsDataStore.isEmpty ? <EmptyPage /> : null}
-      {cardsDataStore.fetchingStatus === RequestStatus.Success &&
-        cardsDataStore.cards.map((card) => (
-          <Card key={card.company.companyId} card={card} />
-        ))}
     </MainPageWrapper>
   );
 });

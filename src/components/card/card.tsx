@@ -23,13 +23,13 @@ type TCardProps = {
 };
 
 function Card({ card }: TCardProps): JSX.Element {
-  const { cardsDataStore, modalStore } = useStore();
+  const { dataStore, modalStore } = useStore();
   const { mobileAppDashboard, customerMarkParameters } = card;
 
+  console.log('card');
   const handleButtonClick = (card, type) => {
-    cardsDataStore.setCard(card);
+    dataStore.setCard(card);
     modalStore.openModal(type);
-    console.log(type);
   };
 
   return (

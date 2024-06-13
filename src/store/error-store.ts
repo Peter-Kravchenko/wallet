@@ -17,9 +17,9 @@ class ErrorStore {
       status === 400
         ? data?.message || axiosError.message
         : status === 401
-        ? 'Authorization error'
+        ? 'Ошибка'
         : status === 500
-        ? 'Something went wrong'
+        ? 'Все упало'
         : axiosError.message;
   };
 

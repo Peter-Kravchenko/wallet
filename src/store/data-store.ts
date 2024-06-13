@@ -6,10 +6,9 @@ import errorStore from './error-store';
 import { AxiosError } from 'axios';
 import modalStore from './modal-store';
 
-class CardsDataStore {
+class DataStore {
   cards: TCards = [];
   card: TCard | null = null;
-  isEmpty: boolean = false;
   fetchingStatus: RequestStatus = RequestStatus.Idle;
 
   constructor() {
@@ -25,18 +24,13 @@ class CardsDataStore {
       this.fetchingStatus = RequestStatus.Pending;
       const cardList = await getAllCards(this.offset, 10);
       runInAction(() => {
-        if (cardList.length) {
-          this.cards.push(...cardList);
-          this.fetchingStatus = RequestStatus.Success;
-        } else {
-          this.isEmpty = true;
-          this.fetchingStatus = RequestStatus.Success;
-        }
+        this.cards.push(...cardList);
+        this.fetchingStatus = RequestStatus.Success;
       });
     } catch (error) {
       this.fetchingStatus = RequestStatus.Rejected;
-      errorStore.setError(error as AxiosError);
       modalStore.openModal(ModalType.Error);
+      errorStore.setError(error as AxiosError);
     }
   }
   setCard(card: TCard): void {
@@ -44,5 +38,5 @@ class CardsDataStore {
   }
 }
 
-export const cardsDataStore = new CardsDataStore();
-export default cardsDataStore;
+export const dataStore = new DataStore();
+export default dataStore;

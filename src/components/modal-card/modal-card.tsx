@@ -5,9 +5,12 @@ import { ModalType } from '../../const';
 import { Image } from 'react-bootstrap';
 
 function ModalCard(): JSX.Element {
-  const { cardsDataStore, modalStore, errorStore } = useStore();
+  const { dataStore, modalStore, errorStore } = useStore();
 
-  const handleClose = () => modalStore.closeModal();
+  const handleClose = () => {
+    modalStore.closeModal();
+    errorStore.clearError();
+  };
 
   console.log(modalStore.modalType);
 
@@ -19,7 +22,7 @@ function ModalCard(): JSX.Element {
         show={modalStore.isOpen}
         onHide={handleClose}
       >
-        {modalStore.modalType === ModalType.Delete ? (
+        {modalStore.modalType === ModalType.Error ? (
           <Modal.Body>
             <Image
               className="mx-auto d-block"
@@ -31,13 +34,13 @@ function ModalCard(): JSX.Element {
             <br />
             Произошла ошибка при загрузке карточки
             <br />
-            Код ошибки {errorStore.message}
+            {errorStore.message}
             <br />
           </Modal.Body>
         ) : (
           <Modal.Body>
             Нажата кнопка {modalStore.modalType} <br /> <br />
-            ID компании: {cardsDataStore.card?.company.companyId}
+            ID компании: {dataStore.card?.company.companyId}
           </Modal.Body>
         )}
         <Modal.Footer className="justify-content-center">

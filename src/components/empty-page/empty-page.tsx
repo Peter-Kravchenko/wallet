@@ -1,5 +1,9 @@
 function EmptyPage() {
-  return <div>EmptyPage</div>;
+  return (
+    <div>
+      <span>В базе данных нет карточек</span>
+    </div>
+  );
 }
 
 export default EmptyPage;

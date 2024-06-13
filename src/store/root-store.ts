@@ -1,9 +1,9 @@
-import cardsDataStore from './data-store';
+import dataStore from './data-store';
 import errorStore from './error-store';
 import modalStore from './modal-store';
 
 class RootStore {
-  cardsDataStore = cardsDataStore;
+  dataStore = dataStore;
   modalStore = modalStore;
   errorStore = errorStore;
 }
